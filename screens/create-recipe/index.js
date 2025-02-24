@@ -10,9 +10,6 @@ const CreateRecipe = () => {
     return(
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
-            <View style={styles.containerHeader}>
-                <Text style={styles.header}>Posteaza Reteta</Text>
-            </View>
             <View style={styles.containerImage}>
                 <View style={styles.image}></View>
             </View>

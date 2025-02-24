@@ -1,12 +1,15 @@
-import { Text, View } from "react-native"
+import { Text, TouchableOpacity, View } from "react-native"
 import styles from "./styles"
+import { useNavigation } from "@react-navigation/native"
 
 const RecipeBox = (props) => {
-
+    const navigator = useNavigation()
     return(
-        <View style={styles.mainContainer}>
+        <TouchableOpacity style={styles.mainContainer} onPress={() => navigator.navigate("RecipeScreen",{
+            name:props.name
+        })}>
             <Text>{props.name}</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 

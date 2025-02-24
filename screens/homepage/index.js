@@ -10,9 +10,6 @@ const Homepage = () => {
     return(
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
-            <View style={styles.containerHeader}>
-                <Text style={styles.header}>Home</Text>
-            </View>
             <View style={styles.containerImage}>
                 <View style={styles.image}></View>
             </View>

@@ -10,9 +10,6 @@ const Account = () => {
     return(
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
-            <View style={styles.containerHeader}>
-                <Text style={styles.header}>Account</Text>
-            </View>
             <View style={styles.accountContainer}>
                 <View style={styles.accountImage}></View>
                 <View style={styles.accountInfoContainer}>
