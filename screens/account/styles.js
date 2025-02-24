@@ -1,0 +1,59 @@
+import { StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+    containerHeader:{
+        width:"100%",
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    header:{
+        paddingVertical:32,
+        paddingHorizontal:90,
+        borderRadius:18,
+        backgroundColor:"gray"
+    },
+    accountContainer:{
+        width:"100%",
+        padding:24,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center",
+        flexDirection:"row"
+    },
+    accountImage:{
+        aspectRatio:1,
+        backgroundColor:"gray",
+        width:"25%"
+    },
+    accountInfoContainer:{
+        padding:12,
+        gap:8,
+        flexGrow:1,
+        justifyContent:"center",
+    },
+    recipesTitle:{
+        fontWeight:"bold",
+        padding:12,
+        fontSize:20
+    },
+    recipesBoxContainer:{
+        flexDirection:"row",
+        gap:12,
+        justifyContent:"center"
+    },
+    recipesButtonContainer:{
+        width:"100%",
+        padding:24,
+        flexDirection:"row",
+        justifyContent:"flex-end"
+    },
+    settingsButtonsContainer:{
+        width:"100%",
+        paddingHorizontal:"10%",
+        gap:12,
+        alignContent:"center",
+        alignItems:"stretch",
+    }
+})
+
+export default styles;
