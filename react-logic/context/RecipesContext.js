@@ -10,16 +10,52 @@ const reducer = (state,action) => {
         }
         case "REMOVE":
             return state.filter(index => index !== action.index);
+        case "SET":
+            return action.recipes
     }
 }
 
 export const RecipeProvider = ({children}) => {
     const [recipes,dispatch] = useReducer(reducer,[]);
-    
+
+    useEffect(() => {
+        (async () => {
+            const intRecipes = await AsyncStorage.getItem("recipes");
+            if (intRecipes){
+                const finalRecipes = JSON.parse(intRecipes);
+                dispatch({type:"SET",recipes:finalRecipes});
+            }
+        })()
+    },[])
+
+    useEffect(() => {
+        (async () => {
+            if(recipes.length > 0){
+                await AsyncStorage.setItem("recipes",JSON.stringify(recipes));
+            }
+        })()
+    },[recipes])
+
+    const addRecipe = (recipe) => {
+        dispatch({
+            type:"ADD",
+            recipe
+        })
+    }
+
+    const removeRecipe = (index) => {
+        dispatch({
+            type:"REMOVE",
+            index
+        })
+    }
+
     return(
         <RecipeContext.Provider value={{
             recipes,
-            dispatch
+            dispatch,
+            addRecipe,
+            removeRecipe
         }}>
             {children}
         </RecipeContext.Provider>

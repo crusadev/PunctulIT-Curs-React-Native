@@ -14,7 +14,7 @@ const CreateRecipe = () => {
     const [complexity,setComplexity] = useState("");
     const [ingredient,setIngredient] = useState("");
     const [iQuantity,setIQuantity] = useState("");
-    const {recipes,dispatch:setRecipe} = useRecipes();
+    const {recipes,addRecipe} = useRecipes();
     const navigator = useNavigation();
 
     const reducer = (state,action) => {
@@ -37,10 +37,7 @@ const CreateRecipe = () => {
             complexity
         }
 
-        setRecipe({
-            type:"ADD",
-            recipe
-        })
+        addRecipe(recipe);
         navigator.navigate("Home")
     }
 
