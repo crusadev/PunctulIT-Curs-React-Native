@@ -11,6 +11,7 @@ import Account from './screens/account/index.js';
 import { faHouse,faPlus,faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import RecipeScreen from './screens/recipe-screen/index.js';
+import { RecipeProvider } from './react-logic/context/RecipesContext.js';
 
 const HomeTabs = createBottomTabNavigator({
   initialRouteName:"Home",
@@ -57,6 +58,8 @@ const Navigation = createStaticNavigation(RootStack)
 
 export default function App() {
   return (
-    <Navigation />
+    <RecipeProvider>
+      <Navigation />
+    </RecipeProvider>
   );
 }
