@@ -1,8 +1,18 @@
-import { registerRootComponent } from 'expo';
+import express from "express"
+import mongoose from "mongoose"
+import userRouter from "./mvc/routes/user.js";
+import recipesRouter from "./mvc/routes/recipes.js"
 
-import Homepage from './screens/homepage';
+const app = express();
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(Homepage);
+app.use(express.json())
+
+app.listen(process.env.PORT, () => {
+    console.log("Server started")
+    mongoose.connect(process.env.DB_URL)
+    .then(() => console.log("connected to database"))
+    .catch(() => console.log("error connecting to database"))
+})
+
+app.use("/users",userRouter);
+app.use("/recipes",recipesRouter);
