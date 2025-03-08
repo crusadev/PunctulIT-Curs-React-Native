@@ -12,6 +12,8 @@ import { faHouse,faPlus,faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import RecipeScreen from './screens/recipe-screen/index.js';
 import { RecipeProvider } from './react-logic/context/RecipesContext.js';
+import { AuthProvider } from './react-logic/context/AuthContext.js';
+import { PointsProvider } from './react-logic/context/PointsContext.js';
 
 const HomeTabs = createBottomTabNavigator({
   initialRouteName:"Home",
@@ -58,8 +60,12 @@ const Navigation = createStaticNavigation(RootStack)
 
 export default function App() {
   return (
-    <RecipeProvider>
-      <Navigation />
-    </RecipeProvider>
+    <PointsProvider>
+      <AuthProvider>
+        <RecipeProvider>
+            <Navigation />
+        </RecipeProvider>
+      </AuthProvider>
+    </PointsProvider>
   );
 }

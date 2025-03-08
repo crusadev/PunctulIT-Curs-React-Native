@@ -17,8 +17,8 @@ const Homepage = () => {
             </View>
             <Text style={styles.title}>Retele noastre:</Text>
             <View style={styles.recipesContainer}>
-                {recipes.map((recipe,index) => (
-                    <RecipeBox key={index} name={recipe.name} />
+                {recipes && recipes.map((recipe,index) => (
+                    <RecipeBox key={index} recipe={recipe} />
                 ))}
             </View>
             <View style={{flexDirection:"row",marginVertical:24}}>
@@ -27,7 +27,7 @@ const Homepage = () => {
             </View>
             <View style={styles.recipesContainer}>
             {recipes.map((recipe,index) => (
-                    <RecipeBox key={index} name={recipe.name} />
+                    <RecipeBox key={index} recipe={recipe} />
                 ))}
             </View>
         </ScrollView>

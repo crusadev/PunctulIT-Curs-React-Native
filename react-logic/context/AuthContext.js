@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store"
 
 const AuthContext = createContext();
@@ -17,7 +17,7 @@ export const AuthProvider = ({children}) => {
                 setEmail(securedEmail);
                 setName(securedName);
             }
-        })
+        })()
     },[])
 
     const login = async (email,password) => {
@@ -53,3 +53,5 @@ export const AuthProvider = ({children}) => {
         </AuthContext.Provider>
     )
 }
+
+export const useAuth = () => useContext(AuthContext)

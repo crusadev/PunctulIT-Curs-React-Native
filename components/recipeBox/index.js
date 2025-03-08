@@ -6,9 +6,13 @@ const RecipeBox = (props) => {
     const navigator = useNavigation()
     return(
         <TouchableOpacity style={styles.mainContainer} onPress={() => navigator.navigate("RecipeScreen",{
-            name:props.name
+            name:props.recipe.name,
+            complexity:props.recipe.complexity,
+            category:props.recipe.category,
+            ingredients:props.recipe.ingredients,
+            time:props.recipe.time
         })}>
-            <Text>{props.name}</Text>
+            <Text>{props.recipe.name}</Text>
         </TouchableOpacity>
     )
 }

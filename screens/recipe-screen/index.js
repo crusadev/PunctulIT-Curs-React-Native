@@ -5,22 +5,17 @@ import Constants from "expo-constants"
 import RecipeBox from "../../components/recipeBox";
 import Button from "../../components/button";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const RecipeScreen = ({route}) => {
-    const {name,category,complexity,ingredients} = route.params
-    const [counter,setCounter] = useState(0);
+    const {name,category,complexity,ingredients,time} = route.params
+    const navigator = useNavigation();
     return(
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
             <View style={styles.containerImage}>
                 <View style={styles.image}></View>
             </View>
-            <View>
-                <Text>{counter}</Text>
-            </View>
-            <TouchableOpacity onPress={() => setCounter(counter + 1)}>
-                <Text>Add to counter</Text>
-            </TouchableOpacity>
             <View style={styles.contentContainer}>
                 <View style={styles.smallInputsContainer}>
                     <View style={styles.inputContainer}>
@@ -37,18 +32,27 @@ const RecipeScreen = ({route}) => {
                     </View>
                     <View style={styles.inputContainer}>
                         <Text style={styles.inputText}>Timp Pregatire</Text>
-                        <Text style={styles.input} />
+                        <Text style={styles.input}>{time}</Text>
                     </View>
                 </View>
                 <View style={styles.bigInputContainer}>
                     <View style={styles.inputContainer}>
                         <Text style={styles.inputText}>Ingrediente</Text>
-                        <Text style={styles.bigInput} >{ingredients}</Text>
+                        <Text style={styles.bigInput} >
+                            {
+                                ingredients.map((ing,index) => (
+                                    <View key={index}>
+                                        <Text>{ing.name}</Text>
+                                        <Text>{ing.quantity}</Text>
+                                    </View>
+                                ))
+                            }
+                            </Text>
                     </View>
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <Button display={"Return"} />
+                <Button display={"Return"} onPress={() => navigator.navigate("Home")}/>
             </View>
         </ScrollView>
     )

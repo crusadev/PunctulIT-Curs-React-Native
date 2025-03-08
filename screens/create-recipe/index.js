@@ -7,6 +7,7 @@ import Button from "../../components/button";
 import { useReducer, useState } from "react";
 import { useRecipes } from "../../react-logic/context/RecipesContext";
 import { useNavigation } from "@react-navigation/native";
+import { usePoints } from "../../react-logic/context/PointsContext";
 
 const CreateRecipe = () => {
     const [name,setName] = useState("");
@@ -14,7 +15,9 @@ const CreateRecipe = () => {
     const [complexity,setComplexity] = useState("");
     const [ingredient,setIngredient] = useState("");
     const [iQuantity,setIQuantity] = useState("");
+    const [time,setTime] = useState("");
     const {recipes,addRecipe} = useRecipes();
+    const {addPoints} = usePoints();
     const navigator = useNavigation();
 
     const reducer = (state,action) => {
@@ -34,10 +37,12 @@ const CreateRecipe = () => {
             name,
             category,
             ingredients,
-            complexity
+            complexity,
+            time
         }
 
         addRecipe(recipe);
+        addPoints()
         navigator.navigate("Home")
     }
 
@@ -45,12 +50,6 @@ const CreateRecipe = () => {
     return(
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
-            {recipes.map((recipe,index) => (
-                <View key={index}>
-                    <Text>{recipe.name}</Text>
-                    <Text>{recipe.category}</Text>
-                </View>
-            ))}
             <View style={styles.containerImage}>
                 <View style={styles.image}></View>
             </View>
@@ -61,6 +60,10 @@ const CreateRecipe = () => {
             <View style={styles.inputContainer}>
                 <Text style={styles.inputText}>{category}</Text>
                 <TextInput style={styles.input} onChangeText={setCategory} placeholder="Categorie"/>
+            </View>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputText}>{time}</Text>
+                <TextInput style={styles.input} onChangeText={setTime} placeholder="Timp Preparare"/>
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.inputText}>{complexity}</Text>
