@@ -6,6 +6,15 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins":[
+      [
+        "expo-image-picker",
+        {
+          "photosPermission":"Avem nevoie de permisiune pentru a accesa galeria",
+          "cameraPermission":"Avem nevoie de permisiune pentru a accesa camera"
+        }
+      ]
+    ],
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",

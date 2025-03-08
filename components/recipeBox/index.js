@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native"
+import { Image, Text, TouchableOpacity, View } from "react-native"
 import styles from "./styles"
 import { useNavigation } from "@react-navigation/native"
 
@@ -10,9 +10,10 @@ const RecipeBox = (props) => {
             complexity:props.recipe.complexity,
             category:props.recipe.category,
             ingredients:props.recipe.ingredients,
-            time:props.recipe.time
+            time:props.recipe.time,
+            image:props.recipe.image
         })}>
-            <Text>{props.recipe.name}</Text>
+            <Image source={{uri:props.recipe.image}} style={styles.image}/>
         </TouchableOpacity>
     )
 }

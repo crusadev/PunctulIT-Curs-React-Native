@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView,Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView,Text, TextInput, TouchableOpacity, View } from "react-native";
 import styles from "./styles"
 import Constants from "expo-constants"
 import RecipeBox from "../../components/recipeBox";
@@ -8,6 +8,7 @@ import { useReducer, useState } from "react";
 import { useRecipes } from "../../react-logic/context/RecipesContext";
 import { useNavigation } from "@react-navigation/native";
 import { usePoints } from "../../react-logic/context/PointsContext";
+import * as ImagePicker from "expo-image-picker"
 
 const CreateRecipe = () => {
     const [name,setName] = useState("");
@@ -19,6 +20,7 @@ const CreateRecipe = () => {
     const {recipes,addRecipe} = useRecipes();
     const {addPoints} = usePoints();
     const navigator = useNavigation();
+    const [image,setImage] = useState(null);
 
     const reducer = (state,action) => {
         switch(action.type){
@@ -38,7 +40,8 @@ const CreateRecipe = () => {
             category,
             ingredients,
             complexity,
-            time
+            time,
+            image
         }
 
         addRecipe(recipe);
@@ -46,12 +49,48 @@ const CreateRecipe = () => {
         navigator.navigate("Home")
     }
 
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:['images'],
+            allowsEditing:true,
+            aspect:[4,3],
+            quality:1
+        })
+
+        if(!result.canceled) setImage(result.assets[0].uri)
+    };
+
+    const takePhoto = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes:['images'],
+            allowsEditing:false,
+            aspect:[4,3],
+            quality:1
+        })
+
+        if(!result.canceled) setImage(result.assets[0].uri)
+    }
+
     const [ingredients,dispatch] = useReducer(reducer,[]);
     return(
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
             <View style={styles.containerImage}>
-                <View style={styles.image}></View>
+                {image ? 
+                <Image source={{uri: image}} style={styles.image}/>
+                :
+                <View style={styles.image}>
+                    <TouchableOpacity onPress={() => takePhoto()}>
+                        <Text>Facem o poza</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => pickImage()}>
+                        <Text>Alege din Galerie</Text>
+                    </TouchableOpacity>
+                </View>
+            }
+            <TouchableOpacity onPress={() => setImage(null)}>
+                <Text>Remove Image</Text>
+            </TouchableOpacity>
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.inputText}>{name}</Text>

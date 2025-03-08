@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView,Text, TextInput, View } from "react-native";
+import { ScrollView,Text, TextInput, View, Image } from "react-native";
 import styles from "./styles"
 import Constants from "expo-constants"
 import RecipeBox from "../../components/recipeBox";
@@ -13,7 +13,7 @@ const Homepage = () => {
         <ScrollView style={{marginTop:Constants.statusBarHeight}}>
             <StatusBar style="auto" />
             <View style={styles.containerImage}>
-                <View style={styles.image}></View>
+                <Image source={require("../../assets/cookingImage.png")} style={styles.image} />
             </View>
             <Text style={styles.title}>Retele noastre:</Text>
             <View style={styles.recipesContainer}>
