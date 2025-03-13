@@ -13,7 +13,7 @@ const RecipeBox = (props) => {
             time:props.recipe.time,
             image:props.recipe.image
         })}>
-            <Image source={{uri:props.recipe.image}} style={styles.image}/>
+            <Image source={{uri:props.recipe.mainImage}} style={styles.image}/>
         </TouchableOpacity>
     )
 }

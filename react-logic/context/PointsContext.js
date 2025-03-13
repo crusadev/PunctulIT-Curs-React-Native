@@ -1,10 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import {createContext, useContext, useDeferredValue, useEffect, useReducer,useState} from "react"
+import { useAuth } from "./AuthContext";
 
 const PointsContext = createContext();
 
 export const PointsProvider = ({children}) => {
     const [points,setPoints] = useState(0);
+    const {userId,token} = useAuth()
 
     useEffect(() => {
         (async () => {
@@ -21,8 +24,23 @@ export const PointsProvider = ({children}) => {
         })()
     },[points])
     
-    const addPoints = () => {
-        setPoints(points+5)
+    const addPoints = async () => {
+        try{
+            const response = await axios.post("http://10.0.2.2:8080/users/points",{
+                value:5
+            },{
+                params:{
+                    userId
+                },
+                headers:{
+                    Authorization:token
+                }
+            })
+            setPoints(points+5)
+        }catch(err){
+            console.log(err.message);
+            console.log(err.response.data)
+        }
     }
 
     const buyItem = (value) => {

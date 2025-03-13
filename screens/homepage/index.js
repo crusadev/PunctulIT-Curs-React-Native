@@ -26,7 +26,7 @@ const Homepage = () => {
                 <Button display={"Search"} />
             </View>
             <View style={styles.recipesContainer}>
-            {recipes.map((recipe,index) => (
+            {recipes && recipes.map((recipe,index) => (
                     <RecipeBox key={index} recipe={recipe} />
                 ))}
             </View>

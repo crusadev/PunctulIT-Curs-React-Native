@@ -54,6 +54,12 @@ const styles = StyleSheet.create({
         alignContent:"center",
         alignItems:"stretch",
     },
+    input:{
+        borderColor:"black",
+        borderWidth:1,
+        borderRadius:12,
+        margin:8
+    },
 })
 
 export default styles;

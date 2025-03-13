@@ -14,6 +14,7 @@ import RecipeScreen from './screens/recipe-screen/index.js';
 import { RecipeProvider } from './react-logic/context/RecipesContext.js';
 import { AuthProvider } from './react-logic/context/AuthContext.js';
 import { PointsProvider } from './react-logic/context/PointsContext.js';
+import { AccountSettings } from './screens/accountSettings/index.js';
 
 const HomeTabs = createBottomTabNavigator({
   initialRouteName:"Home",
@@ -42,7 +43,7 @@ const HomeTabs = createBottomTabNavigator({
       options:{
         tabBarIcon:() => <FontAwesomeIcon icon={faUser} color={"#fae248"} size={24}/>
       }
-    },
+    }
   }
 })
 
@@ -52,7 +53,8 @@ const RootStack = createNativeStackNavigator({
   },
   screens:{
     Home:HomeTabs,
-    RecipeScreen:RecipeScreen
+    RecipeScreen:RecipeScreen,
+    AccountSettings:AccountSettings
   }
 })
 
@@ -60,12 +62,12 @@ const Navigation = createStaticNavigation(RootStack)
 
 export default function App() {
   return (
-    <PointsProvider>
       <AuthProvider>
-        <RecipeProvider>
+        <PointsProvider>
+          <RecipeProvider>
             <Navigation />
-        </RecipeProvider>
+          </RecipeProvider>
+        </PointsProvider>
       </AuthProvider>
-    </PointsProvider>
   );
 }

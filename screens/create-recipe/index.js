@@ -41,7 +41,7 @@ const CreateRecipe = () => {
             ingredients,
             complexity,
             time,
-            image
+            mainImage:image
         }
 
         addRecipe(recipe);

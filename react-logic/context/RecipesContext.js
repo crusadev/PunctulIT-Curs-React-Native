@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createContext, useContext, useDeferredValue, useEffect, useReducer,useState} from "react"
+import { useAuth } from "./AuthContext";
+import axios from "axios";
 
 const RecipeContext = createContext();
 
@@ -17,45 +19,48 @@ const reducer = (state,action) => {
 
 export const RecipeProvider = ({children}) => {
     const [recipes,dispatch] = useReducer(reducer,[]);
+    const {userId,token} = useAuth()
 
     useEffect(() => {
         (async () => {
-            const intRecipes = await AsyncStorage.getItem("recipes");
-            if (intRecipes){
-                const finalRecipes = JSON.parse(intRecipes);
-                dispatch({type:"SET",recipes:finalRecipes});
-            }
+            const response = await axios.get("http://10.0.2.2:8080/recipes/all",{
+                params:{
+                    userId
+                },
+                headers:{
+                    Authorization:token
+                }
+            })
+            dispatch({type:"SET",recipes:response.data.recipes})
         })()
     },[])
 
-    useEffect(() => {
-        (async () => {
-            if(recipes.length > 0){
-                await AsyncStorage.setItem("recipes",JSON.stringify(recipes));
-            }
-        })()
-    },[recipes])
-
-    const addRecipe = (recipe) => {
-        dispatch({
-            type:"ADD",
-            recipe
-        })
+    const addRecipe = async (recipe) => {
+        try{
+            const response = await axios.post("http://10.0.2.2:8080/recipes/",recipe,{
+                params:{
+                    userId
+                },
+                headers:{
+                    Authorization:token
+                },
+            })
+            dispatch({
+                type:"ADD",
+                recipe
+            })
+        }catch(err){
+            console.log(err.message)
+            console.log(err.response.data)
+        }
     }
 
-    const removeRecipe = (index) => {
-        dispatch({
-            type:"REMOVE",
-            index
-        })
-    }
 
     return(
         <RecipeContext.Provider value={{
             recipes,
             dispatch,
             addRecipe,
-            removeRecipe
         }}>
             {children}
         </RecipeContext.Provider>
