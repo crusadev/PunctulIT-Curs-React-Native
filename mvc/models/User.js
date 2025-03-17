@@ -22,6 +22,10 @@ const UserSchema = new Schema({
     recipes:{
         type:[Schema.Types.ObjectId],
         ref:"Recipe",
+    },
+    points:{
+        type:Number,
+        default:0
     }
 })
 
